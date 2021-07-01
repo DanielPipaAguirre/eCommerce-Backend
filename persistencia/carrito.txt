@@ -1,12 +1,16 @@
 [
 	{
-		"id": 0,
-		"timestamp": 1625017894700,
-		"nombre": "Gaseosa",
-		"descripcion": "Producto para venta",
-		"código": "2015A01",
-		"foto": "url",
-		"precio": 23,
-		"stock": 55
+		"id": "7f4584b4",
+		"timestamp": 1625097497734,
+		"producto": {
+			"id": 2,
+			"timestamp": 1625096776588,
+			"nombre": "Sabana",
+			"descripcion": "Producto para venta",
+			"código": "2015A01",
+			"foto": "url",
+			"precio": 23,
+			"stock": 55
+		}
 	}
 ]

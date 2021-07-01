@@ -1,6 +1,6 @@
 const fs = require("fs");
 const api = require("./products.api");
-
+const { v4: uuidv4 } = require("uuid");
 class Carrito {
     constructor() {
         this.carrito = [];
@@ -8,7 +8,9 @@ class Carrito {
 
     async obtenerTodosLosProductos() {
         try {
-            const productos = await fs.promises.readFile("./persistencia/carrito.txt");
+            const productos = await fs.promises.readFile(
+                "./persistencia/carrito.txt"
+            );
             return JSON.parse(`${productos}`);
         } catch (e) {
             return [];
@@ -17,8 +19,8 @@ class Carrito {
 
     /* Devuelve un objeto con el producto encontrado. Si no lo encuentra devuelve undefined  */
     async obtenerProductoPorId(id) {
-        const productos = await this.obtenerTodosLosProductos();
-        return productos.find((producto) => producto.id === +id);
+        const carrito = await this.obtenerTodosLosProductos();
+        return carrito.find((producto) => producto.id === id);
     }
 
     async agregarProductoPorId(id) {
@@ -26,7 +28,11 @@ class Carrito {
         const producto = await api.obtenerProductoPorId(id);
 
         if (!producto) return false;
-        productos.push({ id: +id, ...producto });
+        productos.push({
+            id: uuidv4().split("-")[0],
+            timestamp: Date.now(),
+            producto: { ...producto },
+        });
         try {
             await fs.promises.writeFile(
                 "./persistencia/carrito.txt",
@@ -43,7 +49,7 @@ class Carrito {
         const productos = await this.obtenerTodosLosProductos();
         if (!producto) return false;
         const nuevosProductos = productos.filter(
-            (producto) => producto.id !== +id
+            (producto) => producto.id !== id
         );
         try {
             await fs.promises.writeFile(
