@@ -19,6 +19,9 @@
   "homepage": "https://github.com/DanielPipaAguirre/eCommerce-Backend#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "knex": "^0.95.6",
+    "mongoose": "^5.13.3",
+    "mysql": "^2.18.1",
     "uuid": "^8.3.2"
   }
 }

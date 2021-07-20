@@ -1,7 +1,12 @@
 const express = require("express");
 const app = express();
+const config = require("./config/config.json");
 
-app.set("port", process.env.PORT || 8080);
+if (config.PERSISTENCIA === "mongodb") {
+    require("./database/mongodb/connection");
+}
+
+app.set("port", process.env.PORT || config.PORT);
 app.use(express.json());
 
 app.use("/productos", require("./routes/products.router"));
